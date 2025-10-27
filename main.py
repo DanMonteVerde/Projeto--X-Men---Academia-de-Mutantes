@@ -3,8 +3,12 @@ import json
 
 base_dir = os.path.dirname(os.path.abspath(__file__))
 
-caminho_json = os.path.join(base_dir, "dados.json") 
 def criar_json():
+    caminho_json = os.path.join(base_dir, "mutantes.json") 
+    if not os.path.exists(caminho_json):
+        with open(caminho_json, "w") as arquivo:
+            json.dump({}, arquivo)
+    caminho_json = os.path.join(base_dir, "missao.json") 
     if not os.path.exists(caminho_json):
         with open(caminho_json, "w") as arquivo:
             json.dump({}, arquivo)
