@@ -3,6 +3,9 @@ import json
 
 base_dir = os.path.dirname(os.path.abspath(__file__))
 
+from academia import criar_mutante, treinar_mutante
+
+
 def criar_json():
     caminho_json = os.path.join(base_dir, "mutantes.json") 
     if not os.path.exists(caminho_json):
@@ -31,9 +34,9 @@ while True:
     opcao = menu()
     match opcao:
         case "1":
-            print("Cadastrar Mutante")
+            criar_mutante()
         case "2":
-            print("Treinar Mutante")
+            treinar_mutante()
         case "3":
             print("Enviar para Missão")
         case "4":
