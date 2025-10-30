@@ -84,7 +84,7 @@ def criar_mutante():
 def treinar_mutante():
     print("\n=== Treinar Mutante ===")
     
-    info = escolher_mutante()
+    chave, info = escolher_mutante()
     if info == False:
             input("Pressione enter para continuar...")
             return False
@@ -104,7 +104,7 @@ def escolher_mutante():
 
     if not dados:
         print("Nenhum mutante cadastrado!")
-        return False
+        return False, False
     
     for chave, info in dados.items():
         print(f"{chave} - {info['nome']} | Vida: {info['vida']} | Poder: {info['poder']}")
@@ -112,5 +112,16 @@ def escolher_mutante():
     escolha = input("Escolha o mutante pelo número: ")
     if escolha not in dados:
         print("Mutante inválido!")
+        return False, False
+    return str(escolha), dados[escolha]
+
+def listar_mutante():
+    escolha, info = escolher_mutante()
+    if info == False:
+        input("Pressione enter para continuar...")
         return False
-    return dados[escolha]
+    print(f"Nome: {info['nome']}\nVida: {info['vida']}\nPoder: {info['poder']}\nHabilidades: {info['habilidades']}")
+    input("Pressione enter para continuar...")
+
+if __name__ == "__main__": 
+    listar_mutante()

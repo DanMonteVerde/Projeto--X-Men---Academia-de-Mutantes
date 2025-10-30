@@ -33,7 +33,7 @@ def atualizar_dados(dicio, arquivo):
 def adicionar_dados(dicio, arquivo):
     dados = carregar_dados(arquivo)
     if not dados:
-        return False
+        chave = "1"
     
     #isso pega a primeira e unica chave que vem do dicionario
     chave = str(list(dicio.keys())[0])
@@ -50,6 +50,21 @@ def adicionar_dados(dicio, arquivo):
 
 a = {"1": {"nome": 'dan', 'vida': 5, 'poder': 5, 'habilidade': 'mimimi'}}
 
+def excluir_dados(dicio, arquivo):
+    dados = carregar_dados(arquivo)
+    if not dados:
+        return False
+    
+    #isso pega a primeira e unica chave que vem do dicionario
+    chave = str(list(dicio.keys())[0])
+    for ids, valor in dados.items():
+        if chave == ids:
+            # modifica e salva 
+            del dados[chave]
+            salvar_dados(dados, arquivo)
+            return True
+    else:
+        return False
 def salvar_dados(dados, arquivo):
     caminho_json = os.path.join(base_dir, f"{arquivo}.json") 
     with open(caminho_json, "w") as f:
