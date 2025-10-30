@@ -39,6 +39,7 @@ while True:
             treinar_mutante()
         case "3":
             print("Enviar para Missão")
+            
         case "4":
             print("Iniciar Batalha")
         case "5":

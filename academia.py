@@ -38,10 +38,18 @@ ARQUIVO = "mutantes"
 def criar_mutante():
     print("\n=== Criar Mutante ===")
     tipo = input("Digite o tipo [F - Físico | P - Psíquico]: ").upper()
+    while tipo != 'F' and tipo != "P":
+        tipo = input("Informe um TIPO  [F - Físico | P - Psíquico]: ").upper()
     nome = input("Nome do mutante: ")
-    vida = int(input("Vida inicial: "))
+    while True:
+        try:
+            vida = int(input("Vida inicial: "))
+            break
+        except ValueError:
+            print("Digite um valor numérico para a vida!")
+
     poder = input("Poder principal: ")
-    habilidades = input("Habilidades (separadas por vírgula): n ").split(",")
+    habilidades = input("Habilidades (separadas por vírgula): \n ").split(",")
 
 
     if not Mutante.validar_nome(nome):
@@ -68,26 +76,18 @@ def criar_mutante():
 
     if adicionar_dados(dados_para_json, ARQUIVO):
         print(f"O Mutante {mutante.nome} cadastrado com sucesso!")
-
+        input("Pressione enter para continuar...")
+    else:
+        print("Erro ao cadastrar mutante!")
+        input("Pressione enter para continuar...")
 
 def treinar_mutante():
     print("\n=== Treinar Mutante ===")
-    dados = carregar_dados(ARQUIVO)
-
-    if not dados:
-        print("Nenhum mutante cadastrado!")
-        return
     
-    for chave, info in dados.items():
-        print(f"{chave} - {info['nome']} | Vida: {info['vida']} | Poder: {info['poder']}")
-
-    
-    escolha = input("Escolha o mutante pelo número: ")
-    if escolha not in dados:
-        print("Mutante inválido!")
-        return
-    
-    info = dados[escolha]
+    info = escolher_mutante()
+    if info == False:
+            input("Pressione enter para continuar...")
+            return False
     if "Garras" in info["poder"] or "Força" in info["poder"]:
         mutante = MutanteFisico(info["nome"], info["vida"], info["poder"], info["habilidades"])
     else:
@@ -96,5 +96,21 @@ def treinar_mutante():
     resultado = mutante.treinar()
     dados[escolha]["vida"] = mutante.vida
     atualizar_dados({escolha: dados[escolha]}, ARQUIVO)
+    input(f"{resultado}\nPressione enter para continuar...")
 
 
+def escolher_mutante():
+    dados = carregar_dados(ARQUIVO)
+
+    if not dados:
+        print("Nenhum mutante cadastrado!")
+        return False
+    
+    for chave, info in dados.items():
+        print(f"{chave} - {info['nome']} | Vida: {info['vida']} | Poder: {info['poder']}")
+
+    escolha = input("Escolha o mutante pelo número: ")
+    if escolha not in dados:
+        print("Mutante inválido!")
+        return False
+    return dados[escolha]
