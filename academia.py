@@ -10,32 +10,42 @@ class Mutante:
 
 
     def usar_pooder(self):
+        """ Exibe uma mensagem indicando o uso do poder principal do mutante."""
         return f"{self.nome} usa seu poder: {self.poder}!"
     
     def treinar(self):
+        """ Aumenta a vida do mutante em 10 pontos, simulando um treino."""
         self.vida += 10
         return f"{self.nome} treinou! Vida atual: {self.vida}"
     
     @staticmethod
     def validar_nome(nome):
+        """Verifica se o nome fornecido é válido (não vazio após remover espaços"""
         return bool(nome.strip())
     
     def __str__(self):
+        """Retorna uma representação formatada do mutante exibindo seus atributos."""
         habilidades = ", ".join(self.habilidades)
         return (f"Mutante: {self.nome} | Vida: {self.vida} | Poder: {self.poder} | " f"Habilidades: {habilidades} | Missões: {self.missoes_completadas}")
 
 class MutanteFisico(Mutante):
     def usar_poder(self):
+        """ Exibe a mensagem de uso do poder físico do mutante."""
         return f"{self.nome} usa seu ataque físico: {self.poder}! Impacto devastador!" 
 
 class MutantePsiquico(Mutante):
     def usar_poder(self):
+        """ Exibe a mensagem de uso do poder psíquico do mutante."""
         return f"{self.nome} usa seu ataque psíquico: {self.poder}! Controle mental ativado!"
 
 
 ARQUIVO = "mutantes"
 
 def criar_mutante():
+    """
+    Cria um novo mutante recebendo dados do usuário,
+    valida o nome, define o tipo e salva no arquivo JSON.
+    """
     print("\n=== Criar Mutante ===")
     tipo = input("Digite o tipo [F - Físico | P - Psíquico]: ").upper()
     while tipo != 'F' and tipo != "P":
@@ -82,6 +92,10 @@ def criar_mutante():
         input("Pressione enter para continuar...")
 
 def treinar_mutante():
+    """
+    Seleciona um mutante cadastrado, executa seu treino
+    e atualiza seus dados no arquivo.
+    """
     print("\n=== Treinar Mutante ===")
     
     chave, info = escolher_mutante()
@@ -100,6 +114,7 @@ def treinar_mutante():
 
 
 def escolher_mutante():
+    """ Exibe a lista de mutantes e permite ao usuário escolher um pelo número."""
     dados = carregar_dados(ARQUIVO)
 
     if not dados:
@@ -116,6 +131,7 @@ def escolher_mutante():
     return str(escolha), dados[escolha]
 
 def listar_mutante():
+    """ Exibe na tela todas as informações de um mutante escolhido."""
     escolha, info = escolher_mutante()
     if info == False:
         input("Pressione enter para continuar...")

@@ -3,9 +3,11 @@ from academia import escolher_mutante
 from utils import excluir_dados, carregar_dados, atualizar_dados
 class Missao():
     def __init__(self, descricao, dificuldade):
+        """Inicializa uma missão com descrição e dificuldade."""
         self.descricao = descricao
         self.dificuldade = dificuldade
     def todict(self):
+        """Converte a missão em um dicionário pronto para salvar em arquivo."""
         return {str(len(carregar_dados('missao'))+1):
             {
             "descricao": self.descricao,
@@ -13,6 +15,9 @@ class Missao():
         }}
     
     def morreu(self, info):
+        """Remove o mutante do arquivo caso tenha morrido durante a missão
+            e exibe uma mensagem correspondente.
+        """
         if excluir_dados(info['nome'], 'mutantes') == True:
             print(f"{info['nome']} Morreu")
             input("Pressione enter para continuar...")
@@ -20,6 +25,7 @@ class Missao():
             print("Erro ao excluir dados!")
 
 def escolher_missao():
+    """Exibe todas as missões cadastradas e permite ao usuário escolher uma pelo número."""
     dados = carregar_dados('missao')
 
     if not dados:
