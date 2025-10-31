@@ -1,6 +1,8 @@
 import os
 import json
 
+
+
 base_dir = os.path.dirname(os.path.abspath(__file__))
 
 from academia import criar_mutante, treinar_mutante, listar_mutante
