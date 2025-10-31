@@ -42,8 +42,6 @@ while True:
             iniciar_missao()
         case "4":
             listar_mutante()
-            
-
         case "5":
             print("Adicionar Missão")
             descricao = input("Digite a descrição da missão: ")
