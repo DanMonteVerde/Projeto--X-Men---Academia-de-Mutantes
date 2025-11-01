@@ -139,5 +139,34 @@ def listar_mutante():
     print(f"Nome: {info['nome']}\nVida: {info['vida']}\nPoder: {info['poder']}\nHabilidades: {info['habilidades']}")
     input("Pressione enter para continuar...")
 
+def editar_cadastro():
+    escolha, info = escolher_mutante()
+    if info == False:
+        input("Pressione enter para continuar...")
+        return False
+    
+    print(f"Nome: {info['nome']}\nVida: {info['vida']}\nPoder: {info['poder']}\nHabilidades: {info['habilidades']}")
+    while True:
+        mudar = input("O que deseja mudar? (N - Nome, V - Vida, P - Poder, H - Habilidades): ").upper()
+        match mudar:
+            case "N":
+                info["nome"] = input("Novo nome: ")
+                break
+            case "V":
+                info["vida"] = input("Nova vida: ")
+                break
+            case "P":
+                info["poder"] = input("Novo poder: ")
+                break
+            case "H":
+                info["habilidades"] = input("Novas habilidades (separadas com ,): ").split(",")
+                break
+            case _:
+                print("Opção inválida!")
+                input("Pressione enter para continuar...")
+                continue
+        
+    atualizar_dados({escolha: info}, "mutantes")
+    return True         
 if __name__ == "__main__": 
-    listar_mutante()
+    editar_cadastro()
