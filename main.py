@@ -90,7 +90,6 @@ def pos_autenticar(informacoes):
                 print("Opção inválida")
                 input("Pressione enter para continuar...")
 
-
 while True:
     opcao = menu_inicial()
     match opcao:
